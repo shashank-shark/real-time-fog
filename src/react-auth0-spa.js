@@ -65,7 +65,7 @@ export const Auth0Provider = ({
     const handleRedirectCallback = async () => {
         setLoading(true);
 
-        await auth0Client.handleRedirectCallback(0);
+        await auth0Client.handleRedirectCallback();
         const user = await auth0Client.getUser();
         setUser(user);
         setIsAuthenticated(true);
@@ -77,10 +77,11 @@ export const Auth0Provider = ({
             value={{isAuthenticated, user, loading, popupOpen, loginWithPopup, handleRedirectCallback,
                 getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
                 loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
-                getTokenSilently: (...p) => auth0Client.getTokenWithPopup(...p),
+                getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
+                getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p),
                 logout: (...p) => auth0Client.logout(...p)
             }}>
             {children}
         </Auth0Context.Provider>
-    )
+    );
 };
